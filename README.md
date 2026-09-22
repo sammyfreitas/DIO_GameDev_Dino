@@ -1,4 +1,8 @@
 # Projeto Dio: Recriando o jogo do dinossauro sem internet
+
+https://sammyfreitas.github.io/DIO_GameDev_Dino/
+
+
 ### Sobre
 Projeto foi criado por [Anthony Samuel Sobral de Freitas](https://sammyfreitas.github.io/portfolioSite// "Anthony Samuel Sobral de Freitas") a partir da aula "Recriando o famoso jogo do dinossauro sem internet", do DioLabs, na [Digital Innovation One](https://digitalinnovation.one/ "Digital Innovation One")
 
