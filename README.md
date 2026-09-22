@@ -2,6 +2,9 @@
 
 Releitura moderna do clássico jogo do dinossauro, desenvolvida por **Anthony Freitas** a partir do desafio "Recriando o famoso jogo do dinossauro sem internet" da DIO.
 
+https://sammyfreitas.github.io/DIO_GameDev_Dino/
+
+
 ## Melhorias desta versão
 
 - Interface totalmente redesenhada e responsiva
