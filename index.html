@@ -1,16 +1,103 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Dio Dino Game - by Anthony Freitas</title>
-  <link rel="stylesheet" href="style.css"></link>
-  <script src="script.js" charset="UTF-8" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dino Run — releitura moderna do clássico jogo do dinossauro, por Anthony Freitas.">
+  <title>Dino Run | Anthony Freitas</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="background">
-    <div class="dino"></div>
-    <h1 class="game-over">Game Over</h1>
-    <h2 class="score">Score:</h2>
-  </div>
+  <header class="topbar">
+    <a class="brand" href="https://sammyfreitas.github.io/portfolio/" target="_blank" rel="noopener" aria-label="Portfólio de Anthony Freitas">
+      <span class="brand-mark">AF</span><span>Anthony Freitas</span>
+    </a>
+    <nav class="socials" aria-label="Redes sociais">
+      <a href="https://www.linkedin.com/in/tony-s-freitas/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://github.com/sammyfreitas/" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://x.com/TonySdeFreitas" target="_blank" rel="noopener" aria-label="X" title="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://www.instagram.com/anthony_tijuduke/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.facebook.com/anthonyfreitas78" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="https://discord.com/channels/999307907160088607/999307907160088609" target="_blank" rel="noopener" aria-label="Discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+      <a href="https://wa.me/5521986140005" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <button id="themeToggle" class="icon-btn" type="button" aria-label="Alternar tema" title="Alternar tema"><i class="fa-solid fa-moon"></i></button>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro">
+      <div>
+        <span class="eyebrow">PROJETO · JAVASCRIPT GAME DEVELOPER</span>
+        <h1>Corra. Salte.<br><span>Supere seu recorde.</span></h1>
+        <p>Uma releitura do clássico Dino Game com modos de partida, vidas, dificuldade progressiva, pontuação e uma interface renovada.</p>
+      </div>
+      <div class="intro-actions">
+        <a class="portfolio-link" href="https://sammyfreitas.github.io/portfolio/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver portfólio</a>
+        <a class="old-version" href="old/index.html"><i class="fa-solid fa-clock-rotate-left"></i> Ver versão anterior</a>
+      </div>
+    </section>
+
+    <section class="game-card">
+      <div class="game-toolbar">
+        <div class="mode-picker" aria-label="Modo de jogo">
+          <button class="mode active" data-mode="timed" type="button"><i class="fa-solid fa-stopwatch"></i><span><b>Desafio</b><small>60 segundos</small></span></button>
+          <button class="mode" data-mode="endless" type="button"><i class="fa-solid fa-infinity"></i><span><b>Modo livre</b><small>Até perder as vidas</small></span></button>
+        </div>
+        <div class="game-actions">
+          <button id="pauseBtn" class="mini-btn" type="button" disabled><i class="fa-solid fa-pause"></i><span>Pausar</span></button>
+          <button id="restartBtn" class="mini-btn" type="button" disabled><i class="fa-solid fa-rotate-right"></i><span>Reiniciar</span></button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div><span>PONTOS</span><strong id="score">0</strong></div>
+        <div><span>RECORDE</span><strong id="highScore">0</strong></div>
+        <div><span>ERROS</span><strong id="errors">0</strong></div>
+        <div><span>VIDAS</span><strong id="lives" class="lives">♥ ♥ ♥</strong></div>
+        <div><span id="timeLabel">TEMPO</span><strong id="time">60s</strong></div>
+      </div>
+
+      <div id="game" class="game" tabindex="0" aria-label="Área do jogo Dino Run">
+        <div class="sky"><span class="cloud cloud-1"></span><span class="cloud cloud-2"></span></div>
+        <div id="dino" class="dino"></div>
+        <div class="ground"></div>
+        <div id="startOverlay" class="overlay">
+          <span class="overlay-icon"><i class="fa-solid fa-play"></i></span>
+          <h2>Pronto para correr?</h2>
+          <p>Use <kbd>Espaço</kbd>, <kbd>↑</kbd> ou toque na pista para saltar.</p>
+          <button id="startBtn" class="primary-btn" type="button">Iniciar partida</button>
+        </div>
+        <div id="resultOverlay" class="overlay hidden">
+          <span id="resultIcon" class="overlay-icon"><i class="fa-solid fa-trophy"></i></span>
+          <h2 id="resultTitle">Fim de jogo</h2>
+          <p id="resultText"></p>
+          <div class="result-score"><span>Pontuação final</span><strong id="finalScore">0</strong></div>
+          <button id="playAgainBtn" class="primary-btn" type="button">Jogar novamente</button>
+        </div>
+        <div id="pauseOverlay" class="pause-overlay hidden"><i class="fa-solid fa-pause"></i> Pausado</div>
+      </div>
+
+      <div class="game-help">
+        <span><i class="fa-regular fa-keyboard"></i> Espaço / ↑ para saltar</span>
+        <span><i class="fa-solid fa-mobile-screen-button"></i> Toque na pista no celular</span>
+        <span><i class="fa-solid fa-gauge-high"></i> A velocidade aumenta com o tempo</span>
+      </div>
+    </section>
+
+    <section class="features">
+      <article><i class="fa-solid fa-stopwatch"></i><div><h3>Dois modos</h3><p>Desafio de 60 segundos ou corrida livre para buscar a maior pontuação.</p></div></article>
+      <article><i class="fa-solid fa-heart-pulse"></i><div><h3>3 vidas</h3><p>Uma colisão conta como erro e custa uma vida. Continue correndo enquanto puder.</p></div></article>
+      <article><i class="fa-solid fa-chart-line"></i><div><h3>Pontuação dinâmica</h3><p>Ganhe pontos por tempo e obstáculos superados. Erros reduzem sua pontuação.</p></div></article>
+      <article><i class="fa-solid fa-trophy"></i><div><h3>Recorde local</h3><p>Seu melhor resultado fica salvo neste navegador para a próxima partida.</p></div></article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Todos os Direitos Reservados <strong>Anthony Freitas</strong> · <span id="year"></span></p>
+    <p>Projeto educacional inspirado no desafio Dino Game da DIO.</p>
+  </footer>
 </body>
 </html>
